@@ -1,6 +1,6 @@
 # TIMESTAMP
 **Free Code Camp Time Stamp Project
-**Hey everyone this project is made by Kautilya Tripathi.
+Hey everyone this project is made by Kautilya Tripathi.
 Its a project on timestamp.
 To make this project you need to have grip on javascript.
 Also you need to know node.js and express.js.
