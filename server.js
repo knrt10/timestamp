@@ -1,9 +1,9 @@
-var http = require('http');
-var express = require('express');
+var http = require('http');//load http
+var express = require('express');//load express
 
 var app = express();
 
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 8080);//port used 8080 as per Freecode camp
 
 function timeConverter(UNIX_timestamp){
 var a = new Date(UNIX_timestamp);
@@ -12,7 +12,7 @@ var months = ['January','February','March','April','May','June','July','August',
 var year = a.getFullYear();
 var month = months[a.getMonth()];
 var date = a.getDate();
-var time = date +"th"+ ' ' + month + ', ' + year;
+var time = date +"th"+ ' ' + month + ', ' + year;//used for different time 
 if(date==21){
 return date + "st" + " "   + month + ', ' + year;  
 }
@@ -22,18 +22,21 @@ else if(date==22){
 else if(date==23){
     return date + "rd" + " "   + month + ', ' + year; 
 }
+else if(date===1){
+	return	 date + "st" + " " +month +', ' + year;
+}
 else
 return time;
 }
 
 app.use(function (err, req, res, next) {
   console.error(err.stack)
-  res.status(500).send('Something Not right!')
+  res.status(500).send('Something Not right!')//output in case of error.
 });
 
 app.get('/:date', function(req, res) {
 	 	var formattedDate = '';
-	 		if(!isNaN(req.params.date)) { // check if user put in a number (unix time)
+	 		if(!isNaN(req.params.date)) { // check if user put in a number (Unix time)
 
 			 formattedDate = timeConverter(Number(req.params.date) * 1000); // format unix time to text
 	
@@ -42,8 +45,6 @@ app.get('/:date', function(req, res) {
 		  	 				}
 				res.end(JSON.stringify(retObj));
 			} 		
-	  
-	 		
         var dateValue = req.params.date; // get parameter passed
         dateValue = dateValue.match(/[a-zA-Z]+|[0-9]+/g).join(" "); // convert to array
 		  dateValue = Date.parse(dateValue); // convert to UNIX time
@@ -54,9 +55,9 @@ app.get('/:date', function(req, res) {
 		  	 				"natural": formattedDate
 		  	 				}
 		  } else {
-		  		res.end("Dude Enter some valid date ");  // warn user if invalid date
+		  		res.end("Dude Enter some valid date ");  // warn user if entered date is invalid .
 		  	}
-        res.end(JSON.stringify(retObj));  // Stringify object
+        res.end(JSON.stringify(retObj));  // Used to Stringify object
 });
 
 app.get('/', function(req, res) {
@@ -66,5 +67,5 @@ app.get('/', function(req, res) {
 });
 
 app.listen(8080, function(){  console.log('Express started on http://localhost:' +
-    app.get('port') + '; press Ctrl-C to terminate');
+    app.get('port') + '; press Ctrl+C to terminate');//used to pass in terminal.
 });
